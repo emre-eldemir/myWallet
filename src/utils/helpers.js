@@ -5,8 +5,6 @@ const MAX_ENCODED_LENGTH = 10000;
 const HEX_COLOR_REGEX = /^#[0-9A-Fa-f]{6}$/;
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_REGEX = /^\d{2}:\d{2}$/;
-const TICKET_ID_REGEX = /^PASS-[a-f0-9]{8}$/;
-const CATEGORY_ID_REGEX = /^cat-[a-f0-9]{8}$/;
 
 export function sanitizeString(str, maxLength = MAX_STRING_LENGTH) {
   if (typeof str !== 'string') return '';
@@ -35,8 +33,8 @@ export function validateTicketData(ticket) {
   if (keys.some((k) => !allowedKeys.includes(k))) return null;
 
   if (!ticket.eventName || typeof ticket.eventName !== 'string') return null;
-  if (ticket.id && typeof ticket.id === 'string' && !TICKET_ID_REGEX.test(ticket.id)) return null;
-  if (ticket.categoryId && typeof ticket.categoryId === 'string' && !CATEGORY_ID_REGEX.test(ticket.categoryId)) return null;
+  if (ticket.id && typeof ticket.id !== 'string') return null;
+  if (ticket.categoryId && typeof ticket.categoryId !== 'string') return null;
   if (!isValidDate(ticket.date)) return null;
   if (!isValidTime(ticket.time)) return null;
   if (ticket.color && !isValidColor(ticket.color)) return null;

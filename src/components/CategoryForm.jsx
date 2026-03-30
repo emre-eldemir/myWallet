@@ -22,6 +22,7 @@ export default function CategoryForm({ onSave, onCancel }) {
         value={name}
         onChange={(e) => setName(e.target.value)}
         className="input"
+        maxLength={50}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             e.preventDefault();

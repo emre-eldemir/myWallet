@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import CategoryForm from './CategoryForm';
 import TicketPreview from './TicketPreview';
+import { sanitizeString } from '../utils/helpers';
 
 const TICKET_COLORS = [
   '#1A1714', '#C9A84C', '#E74C3C', '#3498DB', '#2ECC71',
@@ -54,7 +55,18 @@ export default function TicketForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.eventName.trim()) return;
-    onSave(formData);
+    const sanitized = {
+      eventName: sanitizeString(formData.eventName, 200),
+      categoryId: formData.categoryId,
+      date: formData.date,
+      time: formData.time,
+      venue: sanitizeString(formData.venue, 200),
+      seat: sanitizeString(formData.seat, 50),
+      holderName: sanitizeString(formData.holderName, 100),
+      note: sanitizeString(formData.note, 500),
+      color: formData.color,
+    };
+    onSave(sanitized);
   };
 
   const selectedCategory = getCategoryById(formData.categoryId);
@@ -78,6 +90,7 @@ export default function TicketForm({
                   value={formData.eventName}
                   onChange={handleChange}
                   placeholder="e.g. Radiohead Concert"
+                  maxLength={200}
                   required
                 />
               </div>
@@ -150,6 +163,7 @@ export default function TicketForm({
                   value={formData.venue}
                   onChange={handleChange}
                   placeholder="e.g. Madison Square Garden"
+                  maxLength={200}
                 />
               </div>
 
@@ -162,6 +176,7 @@ export default function TicketForm({
                   value={formData.seat}
                   onChange={handleChange}
                   placeholder="e.g. A-12"
+                  maxLength={50}
                 />
               </div>
 
@@ -174,6 +189,7 @@ export default function TicketForm({
                   value={formData.holderName}
                   onChange={handleChange}
                   placeholder="e.g. John Doe"
+                  maxLength={100}
                 />
               </div>
 
@@ -185,6 +201,7 @@ export default function TicketForm({
                   value={formData.note}
                   onChange={handleChange}
                   placeholder="e.g. Doors open at 7:00 PM"
+                  maxLength={500}
                   rows={2}
                 />
               </div>

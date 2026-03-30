@@ -39,12 +39,24 @@ export function formatTime(timeStr) {
 }
 
 export function encodeTicketForShare(ticket) {
-  return btoa(unescape(encodeURIComponent(JSON.stringify(ticket))));
+  const jsonStr = JSON.stringify(ticket);
+  const bytes = new TextEncoder().encode(jsonStr);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
 }
 
 export function decodeTicketFromShare(encoded) {
   try {
-    return JSON.parse(decodeURIComponent(escape(atob(encoded))));
+    const binary = atob(encoded);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const jsonStr = new TextDecoder().decode(bytes);
+    return JSON.parse(jsonStr);
   } catch {
     return null;
   }

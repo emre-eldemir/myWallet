@@ -1,16 +1,54 @@
-# React + Vite
+# WalletPass — Digital Pass Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A single-page web application for creating, managing, and sharing customizable QR-coded digital tickets/passes.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Ticket Creation** — Form with event name, category, date/time, venue, seat, holder name, notes, and color theme
+- **User-Defined Categories** — Create categories with custom emoji and color labels
+- **Live Preview** — See your ticket card update in real-time as you fill out the form
+- **QR Code Generation** — Each ticket gets a unique ID encoded as a QR code
+- **QR Code Download** — Download QR codes as PNG files
+- **Sharing** — Share tickets via Web Share API (mobile) or clipboard link (desktop)
+- **Filtering & Search** — Filter by category, date (upcoming/past), search by event or venue
+- **Sorting** — Sort tickets by date ascending or descending
+- **Expired Tickets** — Past-date tickets are visually dimmed with an "EXPIRED" badge
+- **Persistent Storage** — All data saved in localStorage (no backend required)
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** with Vite
+- **qrcode.react** for QR code generation
+- **uuid** for unique ticket IDs
+- **localStorage** for data persistence
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Development
+
+```bash
+npm install
+npm run dev
+```
+
+### Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+### Docker
+
+```bash
+docker compose up --build
+```
+
+The app will be available at `http://localhost:3000`.
+
+## Design
+
+- Minimal light theme with cream/white backgrounds
+- DM Serif Display (headings) + DM Sans (body) typography
+- Ticket cards with decorative perforation and dynamic color themes
+- Responsive layout for desktop and mobile

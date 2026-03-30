@@ -36,13 +36,7 @@ export default function TicketModal({ ticket, category, onClose, onEdit, onDelet
         await navigator.clipboard.writeText(shareUrl);
         alert('Share link copied to clipboard!');
       } catch {
-        const textArea = document.createElement('textarea');
-        textArea.value = shareUrl;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        alert('Share link copied to clipboard!');
+        alert('Unable to copy link. Please copy it manually from the address bar.');
       }
     }
   }, [ticket]);
